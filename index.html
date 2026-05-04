@@ -1,139 +1,200 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Arthur Xavier — Dev & Redes</title>
+  <title>Arthur Xavier — Data & Systems</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
-      --bg:#080807;--surface:#0f0f0e;--border:#1c1c1a;
-      --accent:#d4f54e;--accent2:#f5944e;
-      --text:#e9e7df;--muted:#5a5850;
-      --font-head:'Syne',sans-serif;--font-mono:'DM Mono',monospace;
-      --font-serif:'Playfair Display',serif;
+      --bg:#f5f2eb;
+      --surface:#edeae1;
+      --border:#d4cfc2;
+      --dark:#1a1814;
+      --accent:#1a4d2e;
+      --accent2:#c8883a;
+      --text:#1a1814;
+      --muted:#7a7568;
+      --font-head:'Syne',sans-serif;
+      --font-mono:'DM Mono',monospace;
+      --font-serif:'Cormorant Garamond',serif;
     }
     html{scroll-behavior:smooth}
-    body{background:var(--bg);color:var(--text);font-family:var(--font-mono);font-size:13px;line-height:1.8;overflow-x:hidden;cursor:none}
-    .cursor{position:fixed;width:12px;height:12px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s;mix-blend-mode:difference}
-    .cursor.big{width:48px;height:48px}
-    body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:100;opacity:.6}
+    body{background:var(--bg);color:var(--text);font-family:var(--font-mono);font-size:13px;line-height:1.8;overflow-x:hidden}
     ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--accent)}
 
-    nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:20px 48px;transition:border-color .3s,background .3s;border-bottom:1px solid transparent}
-    nav.scrolled{border-color:var(--border);background:rgba(8,8,7,.85);backdrop-filter:blur(12px)}
-    .nav-logo{font-family:var(--font-head);font-weight:800;font-size:16px;letter-spacing:-.5px;color:var(--text);text-decoration:none}
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:20px 56px;transition:all .3s;border-bottom:1px solid transparent}
+    nav.scrolled{border-color:var(--border);background:rgba(245,242,235,.92);backdrop-filter:blur(12px)}
+    .nav-logo{font-family:var(--font-head);font-weight:800;font-size:15px;letter-spacing:-.5px;color:var(--text);text-decoration:none}
     .nav-logo span{color:var(--accent)}
-    .nav-links{display:flex;gap:32px;list-style:none}
-    .nav-links a{color:var(--muted);text-decoration:none;font-size:12px;letter-spacing:.08em;text-transform:uppercase;transition:color .2s}
+    .nav-links{display:flex;gap:36px;list-style:none}
+    .nav-links a{color:var(--muted);text-decoration:none;font-size:11px;letter-spacing:.12em;text-transform:uppercase;transition:color .2s}
     .nav-links a:hover{color:var(--accent)}
 
-    section{padding:120px 48px;max-width:1200px;margin:0 auto}
+    /* HERO */
+    #hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;border-bottom:1px solid var(--border)}
+    .hero-left{display:flex;flex-direction:column;justify-content:center;padding:140px 56px 80px;border-right:1px solid var(--border);position:relative}
+    .hero-right{display:flex;flex-direction:column;justify-content:flex-end;padding:140px 56px 80px;background:var(--dark);position:relative;overflow:hidden}
+    .hero-right::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:40px 40px}
 
-    #hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:100px;position:relative;max-width:100%}
-    .hero-inner{max-width:1200px;margin:0 auto;padding:0 48px;width:100%}
-    #hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;opacity:.4;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black,transparent)}
+    .hero-eyebrow{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:32px;display:flex;align-items:center;gap:12px;animation:fadeUp .7s ease both}
+    .hero-eyebrow::before{content:'';width:32px;height:1px;background:var(--accent)}
 
-    .hero-tag{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border);padding:6px 14px;border-radius:2px;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:48px;animation:fadeUp .8s ease both}
-    .hero-tag::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite}
-    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+    h1.hero-name{font-family:var(--font-serif);font-weight:600;font-size:clamp(52px,6vw,88px);line-height:.95;letter-spacing:-.02em;animation:fadeUp .7s .1s ease both}
+    h1.hero-name em{display:block;font-style:italic;color:var(--accent);font-weight:400}
 
-    h1.hero-name{font-family:var(--font-head);font-weight:800;font-size:clamp(56px,9vw,120px);line-height:.92;letter-spacing:-.04em;color:var(--text);animation:fadeUp .8s .1s ease both}
-    h1.hero-name em{font-family:var(--font-serif);font-style:italic;color:var(--accent);font-weight:400}
-    .hero-desc{margin-top:40px;max-width:520px;color:var(--muted);font-size:14px;line-height:1.9;animation:fadeUp .8s .2s ease both}
-    .hero-cta{margin-top:48px;display:flex;gap:16px;flex-wrap:wrap;animation:fadeUp .8s .3s ease both}
-    .hero-scroll{position:absolute;bottom:40px;left:48px;display:flex;align-items:center;gap:12px;color:var(--muted);font-size:11px;letter-spacing:.1em;text-transform:uppercase;animation:fadeUp .8s .5s ease both}
-    .hero-scroll::before{content:'';display:block;width:40px;height:1px;background:var(--border)}
+    .hero-role{margin-top:32px;padding:20px 24px;border:1px solid var(--border);background:var(--surface);animation:fadeUp .7s .2s ease both}
+    .hero-role-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+    .hero-role-title{font-family:var(--font-head);font-weight:700;font-size:14px;color:var(--text)}
+    .hero-role-company{font-size:12px;color:var(--accent);margin-top:2px}
 
-    @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+    .hero-cta{margin-top:40px;display:flex;gap:12px;animation:fadeUp .7s .3s ease both}
 
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:1px solid;cursor:none;transition:all .2s}
-    .btn-primary{background:var(--accent);color:var(--bg);border-color:var(--accent)}
-    .btn-primary:hover{background:transparent;color:var(--accent)}
-    .btn-ghost{background:transparent;color:var(--muted);border-color:var(--border)}
-    .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+    /* Lado direito do hero */
+    .hero-manifesto{font-family:var(--font-serif);font-size:clamp(28px,3vw,42px);font-style:italic;color:rgba(255,255,255,.85);line-height:1.3;animation:fadeUp .7s .15s ease both;position:relative;z-index:1}
+    .hero-manifesto strong{font-style:normal;color:#fff;font-weight:600}
 
-    .section-label{display:flex;align-items:center;gap:16px;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:56px}
+    .hero-links{margin-top:48px;display:flex;gap:16px;position:relative;z-index:1;animation:fadeUp .7s .3s ease both}
+    .hero-link{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.6);font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;transition:all .2s}
+    .hero-link:hover{border-color:rgba(255,255,255,.5);color:#fff}
+    .hero-link svg{width:14px;height:14px;fill:currentColor}
+
+    .hero-location{position:absolute;bottom:32px;left:56px;font-size:11px;color:var(--muted);letter-spacing:.08em;display:flex;align-items:center;gap:8px}
+    .hero-location::before{content:'📍';font-size:10px}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+    /* BOTÕES */
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border:1px solid;transition:all .2s;cursor:pointer}
+    .btn-dark{background:var(--dark);color:#fff;border-color:var(--dark)}
+    .btn-dark:hover{background:var(--accent);border-color:var(--accent)}
+    .btn-outline{background:transparent;color:var(--text);border-color:var(--border)}
+    .btn-outline:hover{border-color:var(--dark);color:var(--dark)}
+
+    /* SEÇÕES */
+    .section-wrap{max-width:1200px;margin:0 auto;padding:100px 56px}
+    .section-label{display:flex;align-items:center;gap:16px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:48px}
     .section-label::after{content:'';flex:1;height:1px;background:var(--border)}
-    .section-label span{color:var(--accent);margin-right:4px}
+    .section-label span{color:var(--accent);font-weight:700}
 
-    h2.section-title{font-family:var(--font-head);font-weight:800;font-size:clamp(36px,4vw,56px);line-height:1;letter-spacing:-.03em;margin-bottom:24px}
-    h2.section-title em{font-family:var(--font-serif);font-style:italic;color:var(--accent);font-weight:400}
+    h2.st{font-family:var(--font-serif);font-weight:600;font-size:clamp(36px,4vw,56px);line-height:1;letter-spacing:-.02em;margin-bottom:20px}
+    h2.st em{font-style:italic;color:var(--accent)}
 
-    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
-    .about-text{color:var(--muted);line-height:2}
-    .about-text p+p{margin-top:16px}
-    .about-text strong{color:var(--text);font-weight:400}
-    .about-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin-top:40px}
-    .stat{background:var(--bg);padding:24px}
-    .stat-num{font-family:var(--font-head);font-weight:800;font-size:36px;color:var(--accent);line-height:1}
-    .stat-label{font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-top:4px}
+    /* SOBRE */
+    #sobre{border-bottom:1px solid var(--border)}
+    .sobre-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:80px;align-items:start}
+    .sobre-text{color:var(--muted);line-height:2}
+    .sobre-text p+p{margin-top:16px}
+    .sobre-text strong{color:var(--text);font-weight:400}
 
-    .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
-    .skill-card{background:var(--surface);padding:32px;transition:background .2s;position:relative;overflow:hidden}
-    .skill-card::before{content:'';position:absolute;top:0;left:0;width:0;height:2px;background:var(--accent);transition:width .3s}
-    .skill-card:hover{background:var(--bg)}
-    .skill-card:hover::before{width:100%}
-    .skill-icon{font-size:28px;margin-bottom:16px;display:block}
-    .skill-title{font-family:var(--font-head);font-weight:700;font-size:16px;margin-bottom:12px;color:var(--text)}
-    .skill-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
-    .tag{padding:3px 10px;border:1px solid var(--border);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-radius:2px}
-    .tag.hl{border-color:var(--accent);color:var(--accent)}
+    .sobre-card{border:1px solid var(--border);overflow:hidden}
+    .sobre-card-header{background:var(--dark);color:#fff;padding:20px 24px;font-family:var(--font-head);font-weight:700;font-size:13px;letter-spacing:.05em}
+    .sobre-card-body{padding:0}
+    .sobre-item{padding:16px 24px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+    .sobre-item:last-child{border-bottom:none}
+    .sobre-item-label{font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+    .sobre-item-value{font-size:12px;color:var(--text);text-align:right}
+    .sobre-item-value.green{color:var(--accent);font-weight:600}
 
-    .projects-list{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border)}
-    .project-item{background:var(--bg);padding:36px 40px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;transition:background .2s;text-decoration:none;color:inherit}
-    .project-item:hover{background:var(--surface)}
-    .project-num{font-family:var(--font-head);font-weight:800;font-size:11px;color:var(--muted);letter-spacing:.1em;margin-bottom:8px}
-    .project-title{font-family:var(--font-head);font-weight:700;font-size:22px;letter-spacing:-.02em;margin-bottom:8px;transition:color .2s}
-    .project-item:hover .project-title{color:var(--accent)}
-    .project-desc{color:var(--muted);font-size:13px;max-width:600px}
-    .project-arrow{font-size:24px;color:var(--muted);transition:transform .2s,color .2s}
-    .project-item:hover .project-arrow{transform:translate(4px,-4px);color:var(--accent)}
+    /* SKILLS */
+    #habilidades{background:var(--dark);border-bottom:1px solid #2a2820}
+    #habilidades .section-label{color:rgba(255,255,255,.3)}
+    #habilidades .section-label::after{background:#2a2820}
+    #habilidades h2.st{color:#fff}
+    #habilidades h2.st em{color:#a8d878}
 
-    .infra-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
+    .skills-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#2a2820;border:1px solid #2a2820;margin-top:16px}
+    .skill-card{background:var(--dark);padding:28px;transition:background .2s;position:relative}
+    .skill-card::after{content:'';position:absolute;top:0;left:0;width:0;height:2px;background:#a8d878;transition:width .3s}
+    .skill-card:hover{background:#222018}
+    .skill-card:hover::after{width:100%}
+    .skill-icon{font-size:24px;margin-bottom:12px;display:block}
+    .skill-title{font-family:var(--font-head);font-weight:700;font-size:13px;color:#fff;margin-bottom:8px}
+    .skill-desc{font-size:11px;color:rgba(255,255,255,.4);line-height:1.7}
+    .skill-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:14px}
+    .tag{padding:2px 8px;border:1px solid #2a2820;font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.4);border-radius:1px}
+    .tag.hl{border-color:#a8d878;color:#a8d878}
+
+    /* PROJETOS */
+    #projetos{border-bottom:1px solid var(--border)}
+    .proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin-top:16px}
+    .proj-card{background:var(--bg);padding:40px;transition:background .2s;position:relative;overflow:hidden}
+    .proj-card:hover{background:var(--surface)}
+    .proj-num{font-size:10px;color:var(--muted);letter-spacing:.12em;margin-bottom:12px}
+    .proj-title{font-family:var(--font-head);font-weight:700;font-size:18px;margin-bottom:10px;transition:color .2s}
+    .proj-card:hover .proj-title{color:var(--accent)}
+    .proj-desc{color:var(--muted);font-size:12px;line-height:1.8;max-width:380px}
+    .proj-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:16px}
+    .proj-tag{padding:3px 10px;border:1px solid var(--border);font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+    .proj-tag.hl{border-color:var(--accent);color:var(--accent)}
+    .proj-arrow{position:absolute;top:40px;right:40px;font-size:18px;color:var(--border);transition:all .2s}
+    .proj-card:hover .proj-arrow{color:var(--accent);transform:translate(3px,-3px)}
+
+    /* INFRA */
+    #infra{background:var(--surface);border-bottom:1px solid var(--border)}
+    .infra-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-top:16px}
     .infra-card{background:var(--bg);padding:40px 32px;text-align:center}
-    .infra-icon{font-size:40px;margin-bottom:20px;display:block}
-    .infra-title{font-family:var(--font-head);font-weight:700;font-size:18px;margin-bottom:8px}
-    .infra-url{font-size:11px;color:var(--accent);letter-spacing:.06em;word-break:break-all}
-    .infra-desc{color:var(--muted);font-size:12px;margin-top:8px}
-    .infra-badge{display:inline-block;margin-top:16px;padding:4px 12px;background:rgba(212,245,78,.08);border:1px solid rgba(212,245,78,.2);color:var(--accent);font-size:10px;letter-spacing:.1em;text-transform:uppercase;border-radius:2px}
+    .infra-icon{font-size:36px;margin-bottom:16px;display:block}
+    .infra-title{font-family:var(--font-head);font-weight:700;font-size:16px;margin-bottom:6px}
+    .infra-sub{font-size:11px;color:var(--muted);margin-bottom:8px}
+    .infra-url{font-size:11px;color:var(--accent);letter-spacing:.04em;word-break:break-all}
+    .infra-badge{display:inline-block;margin-top:16px;padding:4px 12px;background:rgba(26,77,46,.08);border:1px solid rgba(26,77,46,.2);color:var(--accent);font-size:10px;letter-spacing:.08em;text-transform:uppercase}
 
-    .contact-wrap{border:1px solid var(--border);padding:64px;text-align:center;position:relative;overflow:hidden}
-    .contact-wrap::before{content:'';position:absolute;width:400px;height:400px;background:radial-gradient(circle,rgba(212,245,78,.06) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)}
-    .contact-email{font-family:var(--font-head);font-weight:800;font-size:clamp(24px,4vw,48px);letter-spacing:-.03em;color:var(--text);text-decoration:none;display:block;margin:24px 0;transition:color .2s}
-    .contact-email:hover{color:var(--accent)}
+    /* CONTATO */
+    #contato{border-bottom:1px solid var(--border)}
+    .contato-inner{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border)}
+    .contato-left{padding:64px;border-right:1px solid var(--border)}
+    .contato-right{padding:64px;background:var(--dark)}
+    .contato-right h3{font-family:var(--font-serif);font-size:28px;color:#fff;font-style:italic;margin-bottom:32px}
+    .social-list{display:flex;flex-direction:column;gap:1px;background:#2a2820}
+    .social-item{background:var(--dark);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;text-decoration:none;transition:background .2s}
+    .social-item:hover{background:#222018}
+    .social-name{font-size:12px;color:rgba(255,255,255,.6);letter-spacing:.06em}
+    .social-handle{font-size:12px;color:#a8d878}
+    .contact-email-big{font-family:var(--font-serif);font-size:clamp(22px,3vw,38px);font-weight:600;color:var(--text);text-decoration:none;display:block;margin:20px 0 32px;transition:color .2s;line-height:1.2}
+    .contact-email-big:hover{color:var(--accent)}
+    .contato-desc{color:var(--muted);line-height:1.9;margin-bottom:32px}
 
-    footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:11px;letter-spacing:.06em}
+    /* FOOTER */
+    footer{padding:28px 56px;display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:11px;letter-spacing:.06em;border-top:1px solid var(--border)}
     footer a{color:var(--muted);text-decoration:none;transition:color .2s}
     footer a:hover{color:var(--accent)}
 
-    .reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease}
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
     .reveal.visible{opacity:1;transform:translateY(0)}
 
-    @media(max-width:768px){
+    /* TICKER */
+    .ticker-wrap{overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--dark);padding:14px 0}
+    .ticker{display:flex;gap:0;animation:ticker 20s linear infinite;white-space:nowrap}
+    .ticker-item{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);padding:0 32px;border-right:1px solid #2a2820;flex-shrink:0}
+    .ticker-item span{color:#a8d878;margin-right:8px}
+    @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+    @media(max-width:900px){
+      #hero{grid-template-columns:1fr}
+      .hero-right{display:none}
       nav{padding:16px 24px}.nav-links{display:none}
-      section{padding:80px 24px}.hero-inner{padding:0 24px}
-      h1.hero-name{font-size:clamp(42px,12vw,80px)}
-      .about-grid,.skills-grid,.infra-grid{grid-template-columns:1fr}
-      .project-item{grid-template-columns:1fr}.project-arrow{display:none}
-      .contact-wrap{padding:40px 24px}
-      footer{flex-direction:column;gap:12px;text-align:center}
-      .hero-scroll{display:none}
+      .section-wrap{padding:72px 24px}
+      .sobre-grid,.infra-grid,.proj-grid,.contato-inner{grid-template-columns:1fr}
+      .contato-left,.contato-right{padding:40px 24px}
+      .contato-right{border-top:1px solid #2a2820}
+      .skills-grid{grid-template-columns:1fr 1fr}
+      footer{flex-direction:column;gap:8px;text-align:center;padding:24px}
     }
   </style>
 </head>
 <body>
-<div class="cursor" id="cursor"></div>
 
 <!-- NAV -->
 <nav id="navbar">
   <a href="#hero" class="nav-logo">AX<span>.</span></a>
   <ul class="nav-links">
     <li><a href="#sobre">Sobre</a></li>
-    <li><a href="#habilidades">Habilidades</a></li>
+    <li><a href="#habilidades">Skills</a></li>
     <li><a href="#projetos">Projetos</a></li>
     <li><a href="#infra">Infraestrutura</a></li>
     <li><a href="#contato">Contato</a></li>
@@ -141,83 +202,181 @@
 </nav>
 
 <!-- HERO -->
-<div id="hero">
-  <div class="hero-inner">
-    <div class="hero-tag">Disponível para oportunidades</div>
-    <h1 class="hero-name">Arthur<br><em>Xavier</em></h1>
-    <p class="hero-desc">Estudante de Tecnologia da Informação com foco em redes de computadores, infraestrutura e desenvolvimento web. Apaixonado por entender como as coisas funcionam por baixo dos panos.</p>
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Portfólio Profissional — 2025</div>
+    <h1 class="hero-name">
+      Arthur<br>
+      <em>Xavier</em>
+    </h1>
+    <div class="hero-role">
+      <div class="hero-role-label">Cargo atual</div>
+      <div class="hero-role-title">Analista de Logística</div>
+      <div class="hero-role-company">Ouro Safra &nbsp;·&nbsp; Patrocínio, MG</div>
+    </div>
     <div class="hero-cta">
-      <a href="#projetos" class="btn btn-primary">Ver Projetos →</a>
-      <a href="#contato" class="btn btn-ghost">Entrar em contato</a>
+      <a href="#projetos" class="btn btn-dark">Ver Projetos →</a>
+      <a href="#contato" class="btn btn-outline">Contato</a>
+    </div>
+    <div class="hero-location">Patrocínio, Minas Gerais, Brasil</div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-manifesto">
+      <em>"Conectando</em> dados,<br>
+      <strong>processos</strong> e<br>
+      <em>tecnologia."</em>
+    </div>
+    <div class="hero-links">
+      <a href="https://linkedin.com/in/arthur-xavierz" target="_blank" class="hero-link">
+        <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://instagram.com/arthurxavierz" target="_blank" class="hero-link">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        Instagram
+      </a>
+      <a href="https://github.com/arthurxavierz" target="_blank" class="hero-link">
+        <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        GitHub
+      </a>
     </div>
   </div>
-  <div class="hero-scroll">Scroll para explorar</div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <div class="ticker-item"><span>●</span>Data Analytics</div>
+    <div class="ticker-item"><span>●</span>SQL & MySQL</div>
+    <div class="ticker-item"><span>●</span>Power BI</div>
+    <div class="ticker-item"><span>●</span>ERP Systems</div>
+    <div class="ticker-item"><span>●</span>RPA</div>
+    <div class="ticker-item"><span>●</span>Logística</div>
+    <div class="ticker-item"><span>●</span>Java</div>
+    <div class="ticker-item"><span>●</span>Python</div>
+    <div class="ticker-item"><span>●</span>Docker</div>
+    <div class="ticker-item"><span>●</span>Linux</div>
+    <div class="ticker-item"><span>●</span>Apache</div>
+    <div class="ticker-item"><span>●</span>Nginx</div>
+    <!-- duplicado para loop infinito -->
+    <div class="ticker-item"><span>●</span>Data Analytics</div>
+    <div class="ticker-item"><span>●</span>SQL & MySQL</div>
+    <div class="ticker-item"><span>●</span>Power BI</div>
+    <div class="ticker-item"><span>●</span>ERP Systems</div>
+    <div class="ticker-item"><span>●</span>RPA</div>
+    <div class="ticker-item"><span>●</span>Logística</div>
+    <div class="ticker-item"><span>●</span>Java</div>
+    <div class="ticker-item"><span>●</span>Python</div>
+    <div class="ticker-item"><span>●</span>Docker</div>
+    <div class="ticker-item"><span>●</span>Linux</div>
+    <div class="ticker-item"><span>●</span>Apache</div>
+    <div class="ticker-item"><span>●</span>Nginx</div>
+  </div>
 </div>
 
 <!-- SOBRE -->
 <section id="sobre">
-  <div class="section-label"><span>01</span> Sobre mim</div>
-  <div class="about-grid">
-    <div>
-      <h2 class="section-title">Construindo <em>redes</em> e soluções</h2>
-      <div class="about-text">
-        <p>Me chamo <strong>Arthur Xavier</strong>, estudante de TI com interesse em laboratório de redes, servidores e desenvolvimento de sistemas.</p>
-        <p>Tenho experiência com configuração de <strong>ambientes virtualizados</strong> via Oracle VirtualBox, servidores web (Apache e Nginx), containerização com <strong>Docker</strong> e publicação de projetos em nuvem.</p>
-        <p>Acredito que entender a infraestrutura é tão importante quanto escrever bom código. Cada serviço precisa de uma rede que funcione de verdade.</p>
+  <div class="section-wrap">
+    <div class="section-label"><span>01</span> Sobre mim</div>
+    <div class="sobre-grid">
+      <div>
+        <h2 class="st">Dados, processos<br>e <em>soluções</em>.</h2>
+        <div class="sobre-text reveal">
+          <p>Estudante de <strong>Análise e Desenvolvimento de Sistemas</strong>, movido por inovação, otimização de processos e análise de dados.</p>
+          <p>Atuo como <strong>Analista de Logística na Ouro Safra</strong>, onde trabalho com roteirizações, análise de KPIs, gestão de estoque e controle de processos operacionais. Nesse contexto, aplico continuamente tecnologia e automação para aumentar a eficiência.</p>
+          <p>Base técnica sólida em <strong>SQL, modelagem relacional e sistemas orientados a dados</strong>, com direcionamento para Engenharia de Software, ERP e automação de processos.</p>
+          <p>Tenho como eixo central a construção de soluções organizadas, escaláveis e com forte <strong>visão sistêmica</strong>, conectando dados, processos e tecnologia.</p>
+        </div>
       </div>
-    </div>
-    <div>
-      <div class="about-stats reveal">
-        <div class="stat"><div class="stat-num">3</div><div class="stat-label">Ambientes ativos</div></div>
-        <div class="stat"><div class="stat-num">VM</div><div class="stat-label">VirtualBox + Apache</div></div>
-        <div class="stat"><div class="stat-num">🐳</div><div class="stat-label">Docker + Nginx</div></div>
-        <div class="stat"><div class="stat-num">☁️</div><div class="stat-label">GitHub Pages</div></div>
+      <div>
+        <div class="sobre-card reveal">
+          <div class="sobre-card-header">📋 Informações</div>
+          <div class="sobre-card-body">
+            <div class="sobre-item">
+              <span class="sobre-item-label">Localização</span>
+              <span class="sobre-item-value">Patrocínio, MG</span>
+            </div>
+            <div class="sobre-item">
+              <span class="sobre-item-label">Cargo</span>
+              <span class="sobre-item-value">Analista de Logística</span>
+            </div>
+            <div class="sobre-item">
+              <span class="sobre-item-label">Empresa</span>
+              <span class="sobre-item-value">Ouro Safra</span>
+            </div>
+            <div class="sobre-item">
+              <span class="sobre-item-label">Curso</span>
+              <span class="sobre-item-value">ADS — Análise e<br>Desenvolvimento de Sistemas</span>
+            </div>
+            <div class="sobre-item">
+              <span class="sobre-item-label">Foco</span>
+              <span class="sobre-item-value green">Data Analytics & ERP</span>
+            </div>
+            <div class="sobre-item">
+              <span class="sobre-item-label">Status</span>
+              <span class="sobre-item-value green">● Disponível</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- HABILIDADES -->
-<section id="habilidades" style="background:var(--surface);max-width:100%;padding:120px 0">
-  <div style="max-width:1200px;margin:0 auto;padding:0 48px">
+<section id="habilidades">
+  <div class="section-wrap">
     <div class="section-label"><span>02</span> Habilidades</div>
-    <h2 class="section-title" style="margin-bottom:40px">Stack <em>técnico</em></h2>
+    <h2 class="st" style="color:#fff">Stack <em>técnico</em></h2>
     <div class="skills-grid reveal">
       <div class="skill-card">
-        <span class="skill-icon">🌐</span>
-        <div class="skill-title">Redes & Servidores</div>
-        <div class="about-text">Configuração de servidores web Apache e Nginx em diferentes ambientes.</div>
-        <div class="skill-tags"><span class="tag hl">Apache</span><span class="tag hl">Nginx</span><span class="tag">TCP/IP</span><span class="tag">DNS</span><span class="tag">HTTP/S</span></div>
+        <span class="skill-icon">🗄️</span>
+        <div class="skill-title">SQL & Banco de Dados</div>
+        <div class="skill-desc">Modelagem, normalização e otimização de queries em ambientes relacionais.</div>
+        <div class="skill-tags"><span class="tag hl">SQL</span><span class="tag hl">MySQL</span><span class="tag">Modelagem</span><span class="tag">Normalização</span></div>
       </div>
       <div class="skill-card">
-        <span class="skill-icon">🐳</span>
-        <div class="skill-title">Containerização</div>
-        <div class="about-text">Criação de containers para ambientes isolados e reproduzíveis.</div>
-        <div class="skill-tags"><span class="tag hl">Docker</span><span class="tag">Dockerfile</span><span class="tag">docker-compose</span><span class="tag">Volumes</span></div>
+        <span class="skill-icon">📊</span>
+        <div class="skill-title">Business Intelligence</div>
+        <div class="skill-desc">Estruturação, análise e visualização de dados para tomada de decisão.</div>
+        <div class="skill-tags"><span class="tag hl">Power BI</span><span class="tag hl">Excel</span><span class="tag">Dashboard</span><span class="tag">KPI</span></div>
       </div>
       <div class="skill-card">
-        <span class="skill-icon">☁️</span>
-        <div class="skill-title">Cloud & Deploy</div>
-        <div class="about-text">Publicação de aplicações na nuvem com domínio personalizado.</div>
-        <div class="skill-tags"><span class="tag hl">GitHub Pages</span><span class="tag">Git</span><span class="tag">DNS Custom</span><span class="tag">CNAME</span></div>
+        <span class="skill-icon">🏢</span>
+        <div class="skill-title">ERP & Processos</div>
+        <div class="skill-desc">Integração de sistemas ERP e automação de processos operacionais.</div>
+        <div class="skill-tags"><span class="tag hl">ERP</span><span class="tag hl">RPA</span><span class="tag">Logística</span><span class="tag">Roteirização</span></div>
       </div>
       <div class="skill-card">
         <span class="skill-icon">💻</span>
-        <div class="skill-title">Virtualização</div>
-        <div class="about-text">Criação e configuração de VMs para laboratório de redes.</div>
-        <div class="skill-tags"><span class="tag hl">VirtualBox</span><span class="tag">Linux</span><span class="tag">Ubuntu Server</span><span class="tag">SSH</span></div>
+        <div class="skill-title">Desenvolvimento</div>
+        <div class="skill-desc">Programação orientada a objetos e desenvolvimento de sistemas web.</div>
+        <div class="skill-tags"><span class="tag hl">Java</span><span class="tag hl">Python</span><span class="tag">HTML/CSS</span><span class="tag">C++</span></div>
       </div>
       <div class="skill-card">
-        <span class="skill-icon">🖥️</span>
-        <div class="skill-title">Desenvolvimento Web</div>
-        <div class="about-text">Interfaces modernas com HTML, CSS e JavaScript puro.</div>
-        <div class="skill-tags"><span class="tag hl">HTML5</span><span class="tag hl">CSS3</span><span class="tag">JavaScript</span><span class="tag">Responsivo</span></div>
+        <span class="skill-icon">🐳</span>
+        <div class="skill-title">Infraestrutura</div>
+        <div class="skill-desc">Containerização, servidores web e virtualização de ambientes.</div>
+        <div class="skill-tags"><span class="tag hl">Docker</span><span class="tag hl">Apache</span><span class="tag hl">Nginx</span><span class="tag">VirtualBox</span></div>
       </div>
       <div class="skill-card">
         <span class="skill-icon">🐧</span>
-        <div class="skill-title">Linux</div>
-        <div class="about-text">Administração de sistemas Linux via linha de comando.</div>
-        <div class="skill-tags"><span class="tag hl">Bash</span><span class="tag">systemctl</span><span class="tag">apt</span><span class="tag">ufw</span></div>
+        <div class="skill-title">Linux & Redes</div>
+        <div class="skill-desc">Administração de sistemas Linux e configuração de serviços de rede.</div>
+        <div class="skill-tags"><span class="tag hl">Linux</span><span class="tag">Bash</span><span class="tag">DNS</span><span class="tag">SSH</span></div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">☁️</span>
+        <div class="skill-title">Cloud & Git</div>
+        <div class="skill-desc">Versionamento de código e publicação em ambientes de nuvem.</div>
+        <div class="skill-tags"><span class="tag hl">GitHub</span><span class="tag hl">GitHub Pages</span><span class="tag">Git</span><span class="tag">CI/CD</span></div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">⚙️</span>
+        <div class="skill-title">Gestão & Análise</div>
+        <div class="skill-desc">Gestão de estoque, controle de indicadores e otimização de fluxos.</div>
+        <div class="skill-tags"><span class="tag hl">Logística</span><span class="tag">Estoque</span><span class="tag">KPI</span><span class="tag">Processos</span></div>
       </div>
     </div>
   </div>
@@ -225,64 +384,70 @@
 
 <!-- PROJETOS -->
 <section id="projetos">
-  <div class="section-label"><span>03</span> Projetos</div>
-  <h2 class="section-title" style="margin-bottom:40px">Trabalhos <em>acadêmicos</em></h2>
-  <div class="projects-list reveal">
-    <div class="project-item">
-      <div>
-        <div class="project-num">Projeto 01</div>
-        <div class="project-title">Portfólio Multi-Ambiente</div>
-        <p class="project-desc">Portfólio pessoal hospedado em VM com Apache, container Docker com Nginx e GitHub Pages com domínio personalizado. Demonstra configuração completa de serviços de rede.</p>
-        <div class="skill-tags" style="margin-top:12px"><span class="tag hl">Apache</span><span class="tag hl">Nginx</span><span class="tag hl">Docker</span><span class="tag">GitHub Pages</span><span class="tag">DNS</span></div>
+  <div class="section-wrap">
+    <div class="section-label"><span>03</span> Projetos</div>
+    <h2 class="st">Trabalhos <em>acadêmicos</em></h2>
+    <div class="proj-grid reveal">
+      <div class="proj-card">
+        <div class="proj-arrow">↗</div>
+        <div class="proj-num">Projeto 01</div>
+        <div class="proj-title">Sistema de Adoção — AdoteUm</div>
+        <p class="proj-desc">Sistema web para gerenciamento de adoção de animais, desenvolvido em PHP com banco de dados MySQL. Interface para cadastro de pets, adotantes e controle do processo de adoção.</p>
+        <div class="proj-tags"><span class="proj-tag hl">PHP</span><span class="proj-tag hl">MySQL</span><span class="proj-tag">HTML/CSS</span><span class="proj-tag">CRUD</span></div>
       </div>
-      <div class="project-arrow">↗</div>
-    </div>
-    <div class="project-item">
-      <div>
-        <div class="project-num">Projeto 02</div>
-        <div class="project-title">Laboratório de Redes com VirtualBox</div>
-        <p class="project-desc">Configuração de ambiente virtualizado com Oracle VirtualBox para testes de rede, incluindo servidor DHCP, DNS local e roteamento entre redes internas.</p>
-        <div class="skill-tags" style="margin-top:12px"><span class="tag hl">VirtualBox</span><span class="tag">Ubuntu Server</span><span class="tag">DHCP</span><span class="tag">DNS</span><span class="tag">Roteamento</span></div>
+      <div class="proj-card">
+        <div class="proj-arrow">↗</div>
+        <div class="proj-num">Projeto 02</div>
+        <div class="proj-title">Jogo da Veia</div>
+        <p class="proj-desc">Projeto de jogo desenvolvido como exercício de programação e lógica computacional. Explora mecânicas interativas e estruturas de controle de fluxo.</p>
+        <div class="proj-tags"><span class="proj-tag hl">Programação</span><span class="proj-tag">Lógica</span><span class="proj-tag">Game Dev</span></div>
       </div>
-      <div class="project-arrow">↗</div>
-    </div>
-    <div class="project-item">
-      <div>
-        <div class="project-num">Projeto 03</div>
-        <div class="project-title">Servidor Web com Docker Compose</div>
-        <p class="project-desc">Stack com Nginx como servidor de conteúdo estático, usando Docker Compose para orquestração e volumes para persistência de dados.</p>
-        <div class="skill-tags" style="margin-top:12px"><span class="tag hl">Docker Compose</span><span class="tag hl">Nginx</span><span class="tag">Volumes</span><span class="tag">Proxy Reverso</span></div>
+      <div class="proj-card">
+        <div class="proj-arrow">↗</div>
+        <div class="proj-num">Projeto 03</div>
+        <div class="proj-title">Locadora de Karts</div>
+        <p class="proj-desc">Projeto final do 1° período — sistema de gerenciamento para locadora de karts. Controle de reservas, clientes e disponibilidade de equipamentos.</p>
+        <div class="proj-tags"><span class="proj-tag hl">Projeto Final</span><span class="proj-tag">Sistema</span><span class="proj-tag">Gestão</span></div>
       </div>
-      <div class="project-arrow">↗</div>
+      <div class="proj-card">
+        <div class="proj-arrow">↗</div>
+        <div class="proj-num">Projeto 04</div>
+        <div class="proj-title">Portfólio Multi-Ambiente</div>
+        <p class="proj-desc">Este portfólio, hospedado simultaneamente em VM Apache (VirtualBox), container Docker com Nginx e GitHub Pages com domínio personalizado arthurxavier.online.</p>
+        <div class="proj-tags"><span class="proj-tag hl">Apache</span><span class="proj-tag hl">Docker</span><span class="proj-tag hl">Nginx</span><span class="proj-tag">GitHub Pages</span><span class="proj-tag">DNS</span></div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- INFRAESTRUTURA -->
-<section id="infra" style="background:var(--surface);max-width:100%;padding:120px 0">
-  <div style="max-width:1200px;margin:0 auto;padding:0 48px">
+<section id="infra">
+  <div class="section-wrap">
     <div class="section-label"><span>04</span> Infraestrutura</div>
-    <h2 class="section-title" style="margin-bottom:40px">Onde este site <em>vive</em></h2>
+    <h2 class="st">Onde este site <em>vive</em></h2>
     <div class="infra-grid reveal">
       <div class="infra-card">
         <span class="infra-icon">🖥️</span>
         <div class="infra-title">Máquina Virtual</div>
-        <div class="infra-url">http://192.168.x.x</div>
-        <div class="infra-desc">Oracle VirtualBox com Ubuntu Server e Apache2. Rede em modo Bridge.</div>
+        <div class="infra-sub">Oracle VirtualBox + Debian</div>
+        <div class="infra-url">http://192.168.x.x:8081</div>
+        <div style="color:var(--muted);font-size:12px;margin-top:8px">Servidor Apache2 rodando em VM com redirecionamento de porta NAT.</div>
         <span class="infra-badge">Apache 2.4</span>
       </div>
       <div class="infra-card">
         <span class="infra-icon">🐳</span>
         <div class="infra-title">Docker + Nginx</div>
+        <div class="infra-sub">Container Alpine Linux</div>
         <div class="infra-url">http://localhost:8080</div>
-        <div class="infra-desc">Container Docker rodando Nginx para servir conteúdo estático de forma isolada.</div>
+        <div style="color:var(--muted);font-size:12px;margin-top:8px">Container Docker com imagem Nginx Alpine servindo conteúdo estático.</div>
         <span class="infra-badge">Nginx Alpine</span>
       </div>
       <div class="infra-card">
         <span class="infra-icon">☁️</span>
         <div class="infra-title">GitHub Pages</div>
-        <div class="infra-url">arthurxavier.seu-dominio.com</div>
-        <div class="infra-desc">Hospedagem gratuita via GitHub Pages com domínio personalizado e HTTPS automático.</div>
+        <div class="infra-sub">Nuvem + Domínio Próprio</div>
+        <div class="infra-url">arthurxavier.online</div>
+        <div style="color:var(--muted);font-size:12px;margin-top:8px">Hospedagem via GitHub Pages com domínio personalizado e HTTPS automático.</div>
         <span class="infra-badge">HTTPS ativo</span>
       </div>
     </div>
@@ -291,30 +456,42 @@
 
 <!-- CONTATO -->
 <section id="contato">
-  <div class="section-label"><span>05</span> Contato</div>
-  <div class="contact-wrap reveal">
-    <p style="color:var(--muted);font-size:12px;letter-spacing:.1em;text-transform:uppercase;position:relative">Vamos conversar?</p>
-    <a href="mailto:arthur.xavier@email.com" class="contact-email" style="position:relative">arthur.xavier@email.com</a>
-    <p style="color:var(--muted);max-width:480px;margin:0 auto 32px;position:relative">Estudante disponível para estágios, projetos colaborativos e oportunidades na área de redes e infraestrutura.</p>
-    <a href="https://github.com/arthurxavier" class="btn btn-primary" target="_blank" style="position:relative">GitHub →</a>
+  <div class="section-wrap">
+    <div class="section-label"><span>05</span> Contato</div>
+    <div class="contato-inner reveal">
+      <div class="contato-left">
+        <h2 class="st">Vamos<br><em>conversar?</em></h2>
+        <p class="contato-desc">Estudante disponível para estágios, projetos colaborativos e oportunidades na área de dados, sistemas e infraestrutura.</p>
+        <a href="mailto:arthur.xavier@email.com" class="contact-email-big">arthur.xavier<br>@email.com</a>
+        <a href="mailto:arthur.xavier@email.com" class="btn btn-dark">Enviar e-mail →</a>
+      </div>
+      <div class="contato-right">
+        <h3>Redes sociais</h3>
+        <div class="social-list">
+          <a href="https://linkedin.com/in/arthur-xavierz" target="_blank" class="social-item">
+            <span class="social-name">LinkedIn</span>
+            <span class="social-handle">in/arthur-xavierz</span>
+          </a>
+          <a href="https://instagram.com/arthurxavierz" target="_blank" class="social-item">
+            <span class="social-name">Instagram</span>
+            <span class="social-handle">@arthurxavierz</span>
+          </a>
+          <a href="https://github.com/arthurxavierz" target="_blank" class="social-item">
+            <span class="social-name">GitHub</span>
+            <span class="social-handle">arthurxavierz</span>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <footer>
-  <span>© 2025 Arthur Xavier</span>
-  <span>Feito com HTML, CSS & ☕</span>
+  <span>© 2025 Arthur Xavier — Patrocínio, MG</span>
+  <a href="https://arthurxavier.online">arthurxavier.online</a>
 </footer>
 
 <script>
-  const cursor = document.getElementById('cursor');
-  document.addEventListener('mousemove', e => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
-  });
-  document.querySelectorAll('a,button,.skill-card,.project-item').forEach(el => {
-    el.addEventListener('mouseenter', () => cursor.classList.add('big'));
-    el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
-  });
   window.addEventListener('scroll', () => {
     document.getElementById('navbar').classList.toggle('scrolled', scrollY > 60);
   });
